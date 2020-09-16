@@ -13,8 +13,7 @@ const config = {
   bucketName: 'myautospacebbk',
   dirName: 'photos',
   region: 'eu-west-1',
-  accessKeyId: 'AKIAVTNZLTUV4WPTVQOP',
-  secretAccessKey: '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',
+
 }
 
 class NewMaintenance extends Component {
