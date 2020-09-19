@@ -1,6 +1,6 @@
 // creates the maintenance model for the database
 
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
   const Maintenance = sequelize.define("Maintenance", {
     name: {
       type: DataTypes.STRING,
@@ -21,10 +21,16 @@ module.exports = function(sequelize, DataTypes) {
 
     jobDate: {
       type: DataTypes.DATEONLY
+    },
+    partPhoto: {
+      type: DataTypes.STRING
+    },
+    photoPhoto: {
+      type: DataTypes.STRING
     }
   });
 
-  Maintenance.associate = function(models) {
+  Maintenance.associate = function (models) {
     Maintenance.belongsTo(models.Vehicle, {
       foreignKey: {
         allowNull: false

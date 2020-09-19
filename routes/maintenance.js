@@ -4,18 +4,21 @@ const router = app.Router();
 const db = require("../models");
 
 router.post("/api/maintenance/:id", isAuthenticated, (req, res) => {
+  console.log(req.body)
   db.Maintenance.create({
     name: req.body.name,
     description: req.body.description,
     milage: req.body.milage,
     parts: req.body.parts,
     jobDate: req.body.jobDate,
-    VehicleId: req.body.VehicleId
+    VehicleId: req.body.VehicleId,
+    partPhoto: req.body.partPhoto
   })
     .then(() => {
       res.status(200).end();
     })
     .catch(err => {
+      console.log(err)
       res.status(401).json(err);
     });
 });

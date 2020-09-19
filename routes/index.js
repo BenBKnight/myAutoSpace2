@@ -6,8 +6,9 @@ const signUp = require("./signup");
 const member = require("./member");
 const maintenance = require("./maintenance");
 const vehicle = require("./vehicle");
+const aws = require("./aws");
 
-
+router.use(aws)
 router.use(login);
 router.use(signUp);
 router.use(member);

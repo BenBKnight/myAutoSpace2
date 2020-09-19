@@ -78,7 +78,47 @@ export default {
                 Authorization: localStorage.getItem("jwt.Token")
             }
         })
+    },
+    downloadPhoto: function (data) {
+        return axios.post(serverUrl + '/api/photoUpload/', data, {
+            headers: {
+                'accept': 'application/json',
+                'Accept-Language': 'en-US,en;q=0.8',
+                'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
+            }
+        })
+            .then((response) => {
+                if (200 === response.status) {
+                    // If file size is larger than expected.
+                    if (response.data.error) {
+                        if ('LIMIT_FILE_SIZE' === response.data.error.code) {
+                            console.log('Max size: 2MB', 'red');
+                        } else {
+                            console.log(response.data);// If not the given file type
+                            console.log(response.data.error, 'red');
+                        }
+                    } else {
+                        // Success
+                        let fileName = response.data;
+                        console.log(response)
+                        console.log('fileName', fileName);
+                        console.log('File Uploaded', '#3089cf');
+                        return fileName.image
+                    }
+                }
+            }).catch((error) => {
+                // If another error
+                console.log(error, 'red');
+            });
+    },
+    uploadPhoto: function (data) {
+        return axios.get(serverUrl + "/api/photo/" + data)
+            .then(res => {
+                console.log(res)
+                return (res.data)
+            })
     }
 }
+
 
 

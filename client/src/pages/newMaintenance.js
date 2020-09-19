@@ -7,14 +7,6 @@ import Navbar from '../components/Navbar copy';
 import NavbarLink from '../components/NavbarLink';
 import ActionBtn from '../components/ActionBtn';
 import MaintInfoBox from "../components/MaintInfoBox";
-import ReactS3 from "react-s3";
-
-const config = {
-  bucketName: 'myautospacebbk',
-  dirName: 'photos',
-  region: 'eu-west-1',
-
-}
 
 class NewMaintenance extends Component {
   constructor(props) {
@@ -26,17 +18,41 @@ class NewMaintenance extends Component {
         milage: "",
         parts: "",
         jobDate: "",
-        VehicleId: localStorage.getItem("vehicleId")
+        VehicleId: localStorage.getItem("vehicleId"),
+        partPhoto: ""
       },
       year: "",
       day: "",
       month: "",
-      vehicle: []
+      vehicle: [],
+      selectedPartFile: null
     };
   };
-  upload = event => {
-    console.log("herllo")
-  }
+
+  partChangeHandler = (event) => {
+    this.setState({
+      selectedPartFile: event.target.files[0]
+    })
+  };
+  // PartsUpload = (event) => {
+  //   const data = new FormData();// If file selected
+  //   if (this.state.selectedPartFile) {
+  //     data.append('profileImage', this.state.selectedPartFile, this.state.selectedPartFile.name);
+  //     API.downloadPhoto(data)
+  //       .then(res => {
+  //         this.setState({
+  //           maintToAdd: {
+  //             ...this.state.maintToAdd,
+  //             partPhoto: res
+  //           }
+  //         });
+  //       })
+  //   }
+  //   // else {
+  //   //   console.log('Please upload file', 'red');
+  //   // }
+  // };
+
   handleInputChange = event => {
     let value = event.target.value;
     const name = event.target.id;
@@ -47,6 +63,7 @@ class NewMaintenance extends Component {
       }
     });
   };
+
   handleSelect = event => {
     let value = event.target.value;
     const name = event.target.id;
@@ -55,18 +72,58 @@ class NewMaintenance extends Component {
       [name]: value
     });
   };
+
   handleFormSubmit = (e) => {
     e.preventDefault();
-    this.state.maintToAdd.VehicleId = this.state.vehicleId;
-    let newMaint = this.state.maintToAdd;
-    newMaint.VehicleId = this.state.vehicleID;
-    API.maintRecord(newMaint)
-      .then((res) => {
-        this.props.history.push(`/Vehicles/${this.state.maintToAdd.VehicleId}`)
-      })
-      .catch(err => {
-        console.log(err);
-      })
+    const data = new FormData();// If file selected
+    if (this.state.selectedPartFile) {
+      data.append('profileImage', this.state.selectedPartFile, this.state.selectedPartFile.name);
+      API.downloadPhoto(data)
+        .then(res => {
+          this.setState({
+            maintToAdd: {
+              ...this.state.maintToAdd,
+              partPhoto: res
+            }
+          }, () => {
+            this.state.maintToAdd.VehicleId = this.state.vehicleId;
+            let newMaint = this.state.maintToAdd;
+            newMaint.VehicleId = this.state.vehicleID;
+            console.log(newMaint)
+            API.maintRecord(newMaint)
+              .then((res) => {
+                this.props.history.push(`/Vehicles/${this.state.maintToAdd.VehicleId}`)
+              })
+              .catch(err => {
+                console.log(err);
+              })
+          });
+        })
+    }
+    else {
+      this.state.maintToAdd.VehicleId = this.state.vehicleId;
+      let newMaint = this.state.maintToAdd;
+      newMaint.VehicleId = this.state.vehicleID;
+      console.log(newMaint)
+      API.maintRecord(newMaint)
+        .then((res) => {
+          this.props.history.push(`/Vehicles/${this.state.maintToAdd.VehicleId}`)
+        })
+        .catch(err => {
+          console.log(err);
+        })
+    }
+    // this.state.maintToAdd.VehicleId = this.state.vehicleId;
+    // let newMaint = this.state.maintToAdd;
+    // newMaint.VehicleId = this.state.vehicleID;
+    // API.maintRecord(newMaint)
+    //   .then((res) => {
+    //     this.props.history.push(`/Vehicles/${this.state.maintToAdd.VehicleId}`)
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   })
+
   };
 
   componentDidMount() {
@@ -81,6 +138,7 @@ class NewMaintenance extends Component {
   apiCall = () => {
     API.vehicleById(this.state.vehicleID)
       .then((res) => {
+        console.log(res.data[0])
         this.setState({
           vehicle: res.data[0]
         })
@@ -89,6 +147,7 @@ class NewMaintenance extends Component {
         console.log(err)
       })
   };
+
   signOut = () => { localStorage.removeItem("jwt.Token") }
 
   render() {
@@ -123,26 +182,18 @@ class NewMaintenance extends Component {
           </div>
         </div>
         <br />
-        <div className='maintFlex'>
-          <div className='addMaintenanceWrapper'>
-
-            {/* <label className='photoFileLabel'>Add Parts</label> */}
-            <input
-              type="file"
-              onChange={this.upload}
-            />
-
+        <div className='maintFlex' style={{ textAlign: "center" }}>
+          <div className='addMaintenanceWrapper' style={{ marginRight: "0", textAlign: "center" }}>
+            <div style={{ textAlign: "center" }}>
+              <label className='photoFileLabel'>Add Part Photo</label>
+              <input
+                type="file"
+                onChange={this.partChangeHandler}
+                style={{ textAlign: "center" }}
+              ></input>
+            </div>
           </div>
-          <div className='addMaintenanceWrapper'>
-
-            {/* <label className='photoFileLabel'>Add Photos</label> */}
-            <input
-              type="file"
-              onChange={this.upload}
-            />
-
-          </div>
-        </div>
+        </div >
         <br></br>
         <br></br>
         <div className='newMaintBtn'>

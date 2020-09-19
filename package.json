@@ -21,6 +21,7 @@
   "homepage": "https://github.com/BenBKnight/myautospace2#readme",
   "dependencies": {
     "animate.css": "^4.1.0",
+    "aws-sdk": "^2.754.0",
     "axios": "^0.19.2",
     "bcryptjs": "^2.4.3",
     "concurrently": "^5.2.0",
@@ -28,6 +29,8 @@
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "jsonwebtoken": "^8.5.1",
+    "multer": "^1.4.2",
+    "multer-s3": "^2.9.0",
     "mysql": "^2.18.1",
     "mysql2": "^2.1.0",
     "nodemon": "^2.0.4",
