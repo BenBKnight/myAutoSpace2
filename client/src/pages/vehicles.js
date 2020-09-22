@@ -21,6 +21,9 @@ function Vehicles(props) {
   const [yearPurchased, setYearPurchased] = useState("");
   const [accidents, setAccidents] = useState("");
   const [locationLastOwned, setLocationLastOwned] = useState("");
+  const [selectedPhoto, setSelectedPhoto] = useState("")
+  const [awsSelected, setAwsSelected] = useState(false);
+  const [returnedPhoto, setReturnedPhoto] = useState("");
 
   const [activeType, setActiveType] = useState({
     car: true,
@@ -83,7 +86,8 @@ function Vehicles(props) {
       accidents: accidents,
       numOfOwners: vehicleOwners,
       locationLastOwned: locationLastOwned,
-      UserId: userId.id
+      UserId: userId.id,
+      vehiclePhoto: returnedPhoto
     };
     console.log(vehicleNew)
     API.newVehicle(vehicleNew)
@@ -147,6 +151,22 @@ function Vehicles(props) {
     console.log(userId.id)
   })
   const signOut = () => { setUserId({ ...userId, showNotification: true }); localStorage.removeItem("jwt.Token"); }
+  const addFile = (e) => {
+    setSelectedPhoto(e.target.files[0])
+    setAwsSelected(true)
+
+  };
+  const upLoadFile = (e) => {
+    e.preventDefault();
+    const data = new FormData();// If file selected
+    if (selectedPhoto) {
+      data.append('profileImage', selectedPhoto, selectedPhoto.name);
+      API.downloadPhoto(data)
+        .then(res => {
+          setReturnedPhoto(res)
+        })
+    }
+  }
 
   return (
     <>
@@ -176,6 +196,11 @@ function Vehicles(props) {
             <FormImg id={2} dataField='vehicleOwners' dataValue='two' src='two_gray.png' srcActive='two_blue.png' imgName='Two' active={activeOwners.two} handleSelectionClick={handleSelectionClick}></FormImg>
             <FormImg id={3} dataField='vehicleOwners' dataValue='three' src='three_gray.png' srcActive='three_blue.png' imgName='Three' active={activeOwners.three} handleSelectionClick={handleSelectionClick}></FormImg>
             <FormImg id={4} dataField='vehicleOwners' dataValue='more' src='more_gray.png' srcActive='more_blue.png' imgName='More' active={activeOwners.more} handleSelectionClick={handleSelectionClick}></FormImg>
+          </div>
+          <h2 className="addCarSubHeader">Add Photo</h2>
+          <div className="carFormInputWrapper">
+            <input onChange={addFile} type="file" />
+            <ActionBtn style={{ display: !awsSelected ? "none" : "contents" }} url='#' handleClick={upLoadFile}>Upload</ActionBtn>
           </div>
         </div>
         <div className='addCarWrapper'>

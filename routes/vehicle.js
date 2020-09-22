@@ -47,7 +47,8 @@ router.post("/api/postVehicle", isAuthenticated, (req, res) => {
     accidents: req.body.accidents,
     numOfOwners: req.body.numOfOwners,
     locationLastOwned: req.body.locationLastOwned,
-    UserId: req.body.UserId
+    UserId: req.body.UserId,
+    vehiclePhoto: req.body.vehiclePhoto
   }).then(dbPost => {
     res.json(dbPost);
   }).catch(err => {

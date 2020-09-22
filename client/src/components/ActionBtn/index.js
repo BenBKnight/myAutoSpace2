@@ -4,15 +4,16 @@ import "./style.css";
 
 
 class ActionBtn extends React.Component {
-
-  state = {
-
-  }
+  constructor(props) {
+    super(props)
+    this.state = {
+    };
+  };
 
 
   render() {
     return (
-      <Link to={this.props.url}>
+      <Link to={this.props.url} style={this.props.style}>
         <button className="actionBtn" onClick={this.props.handleClick}>{this.props.children}</button>
       </Link>
     );
