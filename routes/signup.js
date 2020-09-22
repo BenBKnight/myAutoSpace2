@@ -7,6 +7,7 @@ const jwt = require("jsonwebtoken")
 
 // Takes new user information and sends it to database
 router.post("/api/signup", (req, res) => {
+  console.log(req.body)
   bcrypt.hash(req.body.password, 10, (err, hash) => {
     if (err) {
       return res.status(500).json({

@@ -27,6 +27,9 @@ module.exports = function (sequelize, DataTypes) {
     },
     location: {
       type: DataTypes.STRING
+    },
+    profolioPic: {
+      type: DataTypes.STRING
     }
   });
   //Vehicles Association

@@ -33,7 +33,11 @@
   margin: .2rem;
   padding: .2rem;
 }
-
+.photoFileLabel{
+  font-size: 1.5rem;
+  margin: 1rem;
+  color: #424ea1;
+}
 @media (max-width: 769px) {
   .signUpHeader{
     font-size: 1.5rem;

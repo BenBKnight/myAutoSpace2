@@ -25,9 +25,6 @@ export default function Members(props) {
           ...res.data
         ]);
         if (Notification.permission === "granted" && userId.showNotification === true) {
-          // navigator.serviceWorker.getRegistration().then(reg => {
-          //   reg.showNotification("You have " + res.data.length + " vehicles in your garage.");
-          // });
           setUserId({ ...userId, showNotification: false });
         }
       })

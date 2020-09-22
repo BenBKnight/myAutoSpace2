@@ -9,7 +9,8 @@ export const AuthProvider = props => {
         firstName: "",
         lastName: "",
         token: "",
-        showNotification: true
+        showNotification: true,
+        profolioPic: ""
     })
 
     return (

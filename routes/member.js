@@ -1,7 +1,9 @@
 // Requiring our models and passport as we've configured it
+const db = require("../models");
 const app = require("express");
 const router = app.Router();
 const isAuthenticated = require("../config/middleware/isAuthenticated");
+const { response } = require("express");
 
 // Route for getting some data about our user to be used client side
 router.get("/api/user_data", isAuthenticated, (req, res) => {
@@ -18,5 +20,18 @@ router.get("/api/user_data", isAuthenticated, (req, res) => {
     });
   }
 });
+router.put("/api/userPhoto/", isAuthenticated, (req, res) => {
+  // console.log("********************************************************", req)
+  let userId = req.body[1]
+  let userPhoto = req.body[0]
+  db.User.update(
+    { profolioPic: userPhoto },
+    { where: { id: userId } }
+  )
+    .then(response => {
+      res.json(response)
+      // console.log("********************************************************", res.jso)
+    })
+})
 
 module.exports = router;

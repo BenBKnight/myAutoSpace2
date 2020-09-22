@@ -34,24 +34,6 @@ class NewMaintenance extends Component {
       selectedPartFile: event.target.files[0]
     })
   };
-  // PartsUpload = (event) => {
-  //   const data = new FormData();// If file selected
-  //   if (this.state.selectedPartFile) {
-  //     data.append('profileImage', this.state.selectedPartFile, this.state.selectedPartFile.name);
-  //     API.downloadPhoto(data)
-  //       .then(res => {
-  //         this.setState({
-  //           maintToAdd: {
-  //             ...this.state.maintToAdd,
-  //             partPhoto: res
-  //           }
-  //         });
-  //       })
-  //   }
-  //   // else {
-  //   //   console.log('Please upload file', 'red');
-  //   // }
-  // };
 
   handleInputChange = event => {
     let value = event.target.value;
@@ -113,17 +95,6 @@ class NewMaintenance extends Component {
           console.log(err);
         })
     }
-    // this.state.maintToAdd.VehicleId = this.state.vehicleId;
-    // let newMaint = this.state.maintToAdd;
-    // newMaint.VehicleId = this.state.vehicleID;
-    // API.maintRecord(newMaint)
-    //   .then((res) => {
-    //     this.props.history.push(`/Vehicles/${this.state.maintToAdd.VehicleId}`)
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   })
-
   };
 
   componentDidMount() {

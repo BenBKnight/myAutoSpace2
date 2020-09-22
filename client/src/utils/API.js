@@ -101,8 +101,6 @@ export default {
                         // Success
                         let fileName = response.data;
                         console.log(response)
-                        console.log('fileName', fileName);
-                        console.log('File Uploaded', '#3089cf');
                         return fileName.image
                     }
                 }
@@ -117,6 +115,17 @@ export default {
                 console.log(res)
                 return (res.data)
             })
+    },
+    updateUserPic: function (data) {
+        console.log(data)
+        return axios.put(serverUrl + "/api/userPhoto/", data, {
+            headers: {
+                Authorization: localStorage.getItem("jwt.Token")
+            }
+        }).catch((error) => {
+            // If another error
+            console.log(error);
+        });
     }
 }
 

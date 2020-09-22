@@ -7,6 +7,7 @@ const jwt = require("jsonwebtoken")
 
 
 router.post("/api/login", (req, res) => {
+  console.log("first", req.body)
   db.User.findOne({
     where: {
       email: req.body.email
@@ -25,7 +26,8 @@ router.post("/api/login", (req, res) => {
             email: user.dataValues.email,
             id: user.dataValues.id,
             lastName: user.dataValues.lastName,
-            firstName: user.dataValues.firstName
+            firstName: user.dataValues.firstName,
+            profolioPic: user.dataValues.profolioPic
           },
             process.env.JWT_KEY,
             {
@@ -38,14 +40,18 @@ router.post("/api/login", (req, res) => {
               token: token,
               id: user.dataValues.id,
               lastName: user.dataValues.lastName,
-              firstName: user.dataValues.firstName
+              firstName: user.dataValues.firstName,
+              profolioPic: user.dataValues.profolioPic
             })
         }
         res.status(401).json({
           message: "Auth Unsuccessful"
         })
       })
-    }).catch(err => { res.status(401).json(err); });
+    }).catch(err => {
+      console.log(err)
+      res.status(401).json(err);
+    });
 })
 
 

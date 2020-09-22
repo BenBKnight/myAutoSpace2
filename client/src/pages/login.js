@@ -53,7 +53,8 @@ function Login(props) {
           id: resData.data.id,
           firstName: resData.data.firstName,
           lastName: resData.data.lastName,
-          token: resData.data.token
+          token: resData.data.token,
+          profolioPic: resData.data.profolioPic
         })
         props.history.push("/Members");
         store.addNotification({
@@ -69,6 +70,7 @@ function Login(props) {
         });
       })
       .catch(err => {
+        console.log(err)
         switch (err.message) {
           case "Request failed with status code 401":
             store.addNotification({
@@ -127,7 +129,13 @@ function Login(props) {
     API.signUp(user)
       .then(resData => {
         console.log(resData)
-        setUserId({ id: resData.data.id })
+        setUserId({
+          ...userId,
+          id: resData.data.id,
+          firstName: resData.data.firstName,
+          lastName: resData.data.lastName,
+          token: resData.data.token
+        })
         props.history.push("/Members")
         store.addNotification({
           message: "Signed-up and logged-in",
