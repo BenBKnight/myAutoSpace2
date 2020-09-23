@@ -58,7 +58,6 @@ class MaintRecord extends Component {
                 <Navbar>
                     <NavbarLink url='/Members'>My Garage</NavbarLink>
                     <NavbarLink url='/vehicles'>Add Vehicle</NavbarLink>
-                    <NavbarLink url='/add-maintenance'>Add Maintenance</NavbarLink>
                     <ActionBtn handleClick={this.signOut} url='/'>Sign Out</ActionBtn>
                 </Navbar>
                 <div className='garageWrapper'>

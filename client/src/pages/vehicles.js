@@ -30,20 +30,20 @@ function Vehicles(props) {
     truck: false,
     bike: false
   });
-  const [vehicleType, setVehicleType] = useState("");
+  const [vehicleType, setVehicleType] = useState("Car");
   const [activeCondition, setActiveCondition] = useState({
     good: true,
     fair: false,
     poor: false
   });
-  const [vehicleCondition, setVehicleCondition] = useState("");
+  const [vehicleCondition, setVehicleCondition] = useState("Good");
   const [activeOwners, SetActiveOwners] = useState({
     one: false,
     two: true,
     three: false,
     more: false
   });
-  const [vehicleOwners, setVehicleOwners] = useState("");
+  const [vehicleOwners, setVehicleOwners] = useState(2);
 
   const [userId, setUserId] = useContext(AuthContext);
 
@@ -73,7 +73,6 @@ function Vehicles(props) {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    console.log('hit');
     let vehicleNew = {
       type: vehicleType,
       make: make,
@@ -93,7 +92,6 @@ function Vehicles(props) {
     API.newVehicle(vehicleNew)
       .then((res) => {
         setUserId({ ...userId, showNotification: true });
-        console.log("api returned", res);
         props.history.push("/Members");
         store.addNotification({
           message: "Added new vehicle.",
@@ -173,7 +171,6 @@ function Vehicles(props) {
       <Navbar>
         <NavbarLink url='/members'>My Garage</NavbarLink>
         <NavbarLink url='/vehicles' active={true}>Add Vehicle</NavbarLink>
-        <NavbarLink url='/add-maintenance'>Add Maintenance</NavbarLink>
         <ActionBtn handleClick={signOut} url='/'>Sign Out</ActionBtn>
       </Navbar>
       <div className='addCarFlex'>

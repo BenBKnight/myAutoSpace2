@@ -57,16 +57,17 @@ router.post("/api/postVehicle", isAuthenticated, (req, res) => {
   });
 });
 
-// // DELETE route for deleting posts
-// router.delete("/api/vehicles/:id", isAuthenticated, (req, res) => {
-//   db.Vehicle.destroy({
-//     where: {
-//       id: req.params.id
-//     }
-//   }).then(dbVehicle => {
-//     res.json(dbVehicle);
-//   });
-// });
+// DELETE route for deleting posts
+router.delete("/api/vehicles/:id", isAuthenticated, (req, res) => {
+  console.log(req.params)
+  db.Vehicle.destroy({
+    where: {
+      id: req.params.id
+    }
+  }).then(dbVehicle => {
+    res.json(dbVehicle);
+  });
+});
 
 // I don't remember this one being used in the original project, but might be something someone is 
 // wanting to use later?

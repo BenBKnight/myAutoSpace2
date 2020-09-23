@@ -5,11 +5,13 @@ import defaultPhoto from "../FormImg/img/car_gray.png"
 import { useEffect } from 'react';
 import API from "../../utils//API";
 import { useState } from 'react';
+import { useReducer } from 'react';
 
 
 function CarInfoBox(props) {
   const [photo, setPhoto] = useState(defaultPhoto);
   const vehiclePic = props.vehicle.vehiclePhoto;
+  const [confirmDelete, setConfirmDelete] = useState(false);
 
   useEffect(() => {
 
@@ -27,7 +29,20 @@ function CarInfoBox(props) {
     }
 
   }, [])
-
+  const deleteVehicle = () => {
+    if (confirmDelete === false) {
+      setConfirmDelete(true)
+    } else {
+      setConfirmDelete(false)
+    }
+  };
+  const DELETECAR = () => {
+    let carId = props.vehicle.id
+    API.deleteCar(carId)
+      .then(res => {
+        setConfirmDelete(false)
+      })
+  };
 
   return (
     <div className='carInfoBox'>
@@ -55,7 +70,8 @@ function CarInfoBox(props) {
           <Link to={`/NewMaintenance/${props.vehicle.id}`}>
             <p className='carBoxLink'>New Maintenance</p>
           </Link>
-          <p className='carBoxLinkRed'>Delete</p>
+          <p onClick={deleteVehicle} className='carBoxLinkRed'>Delete</p>
+          <p onClick={DELETECAR} style={{ display: confirmDelete ? "contents" : "none" }} className="carBoxLinkRed">Confirm Delete?</p>
         </div>
       </span>
     </div>

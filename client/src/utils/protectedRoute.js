@@ -10,15 +10,20 @@ export default function ProtectedRoute({ component: Component, ...rest }) {
         let token = localStorage.getItem("jwt.Token");
         if (token) {
             let expirationDate = jwt.decode(token).exp;
-            console.log("***********************", jwt.decode(token))
-            let currentId = jwt.decode(token).id
+            let currentId = jwt.decode(token).id;
+            let first = jwt.decode(token).firstName;
+            let last = jwt.decode(token).lastName;
+            let pic = jwt.decode(token).profolioPic
             let newDate = new Date();
             if (expirationDate < newDate.getTime() / 1000) {
                 setIsAuthenticated(false)
             } if (expirationDate > newDate.getTime() / 1000) {
                 SetUserId({
                     ...userId,
-                    id: currentId
+                    id: currentId,
+                    firstName: first,
+                    lastName: last,
+                    profolioPic: pic
                 })
                 setIsAuthenticated(true)
             } else (

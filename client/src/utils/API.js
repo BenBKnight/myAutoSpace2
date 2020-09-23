@@ -112,7 +112,6 @@ export default {
     uploadPhoto: function (data) {
         return axios.get(serverUrl + "/api/photo/" + data)
             .then(res => {
-                console.log(res)
                 return (res.data)
             })
     },
@@ -126,6 +125,17 @@ export default {
             // If another error
             console.log(error);
         });
+    },
+    deleteCar: function (data) {
+        console.log(data)
+        return axios.delete(serverUrl + "/api/vehicles/" + data, {
+            headers: {
+                Authorization: localStorage.getItem("jwt.Token")
+            }
+        })
+            .then((res) => {
+                console.log(res)
+            })
     }
 }
 
