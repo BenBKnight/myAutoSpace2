@@ -59,7 +59,6 @@ router.post("/api/postVehicle", isAuthenticated, (req, res) => {
 
 // DELETE route for deleting posts
 router.delete("/api/vehicles/:id", isAuthenticated, (req, res) => {
-  console.log(req.params)
   db.Vehicle.destroy({
     where: {
       id: req.params.id
@@ -69,17 +68,19 @@ router.delete("/api/vehicles/:id", isAuthenticated, (req, res) => {
   });
 });
 
-// I don't remember this one being used in the original project, but might be something someone is 
-// wanting to use later?
-// // Get route for returning posts of a specific type
-// router.get("/api/allVehicles/type/:type", isAuthenticated, (req, res) => {
-//   db.Vehicle.findAll({
-//     where: {
-//       type: req.params.type
-//     }
-//   }).then(dbVehicle => {
-//     res.json(dbVehicle);
-//   });
-// });
+router.put("/api/vehicleMileage/", isAuthenticated, (req, res) => {
+  console.log("**************", req.body)
+  let newMileage = req.body[1];
+  let vehicleId = req.body[0];
+
+  db.Vehicle.update(
+    { mileage: newMileage },
+    { where: { id: vehicleId } }
+  )
+    .then(response => {
+      console.log(response)
+      res.json(response)
+    })
+})
 
 module.exports = router;

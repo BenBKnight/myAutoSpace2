@@ -5,13 +5,15 @@ import defaultPhoto from "../FormImg/img/car_gray.png"
 import { useEffect } from 'react';
 import API from "../../utils//API";
 import { useState } from 'react';
-import { useReducer } from 'react';
-
+import ActionBtn from "../ActionBtn/index"
 
 function CarInfoBox(props) {
   const [photo, setPhoto] = useState(defaultPhoto);
   const vehiclePic = props.vehicle.vehiclePhoto;
   const [confirmDelete, setConfirmDelete] = useState(false);
+  const [hideMilage, setHideMilage] = useState(false);
+  // const []
+  const [milage, setMilage] = useState("")
 
   useEffect(() => {
 
@@ -43,7 +45,26 @@ function CarInfoBox(props) {
         setConfirmDelete(false)
       })
   };
-
+  const showInput = () => {
+    if (hideMilage === false) {
+      setHideMilage(true)
+    } else {
+      setHideMilage(false)
+    }
+  }
+  const milageUpdate = (e) => {
+    setMilage(e.target.value)
+  }
+  const handleMilageUpdate = () => {
+    setHideMilage(false);
+    let carId = props.vehicle.id
+    let newMilage = milage
+    let data = [carId, newMilage]
+    API.updateMileage(data)
+      .then(res => {
+        console.log(res)
+      })
+  }
   return (
     <div className='carInfoBox'>
       <span className='carBoxTopInfo'>
@@ -66,7 +87,9 @@ function CarInfoBox(props) {
           <Link to={`/vehicles/${props.vehicle.id}`}>
             <p className='carBoxLink'>View Vehicle</p>
           </Link>
-          <p className='carBoxLink'>Update Milage</p>
+          <p className='carBoxLink' onClick={showInput}>Update Milage</p>
+          <input type="text" style={{ display: hideMilage ? "" : "none" }} name="milage" onChange={milageUpdate} ></input>
+          <ActionBtn url="#" handleClick={handleMilageUpdate} style={{ display: hideMilage ? "" : "none" }} >Update!</ActionBtn>
           <Link to={`/NewMaintenance/${props.vehicle.id}`}>
             <p className='carBoxLink'>New Maintenance</p>
           </Link>

@@ -136,6 +136,18 @@ export default {
             .then((res) => {
                 console.log(res)
             })
+    },
+    updateMileage: function (data) {
+        console.log(data)
+        console.log(localStorage.getItem("jwt.Token"))
+        return axios.put(serverUrl + "/api/vehicleMileage/", data, {
+            headers: {
+                Authorization: localStorage.getItem("jwt.Token")
+            }
+        })
+            .then((res) => {
+                console.log(res)
+            })
     }
 }
 

@@ -21,7 +21,6 @@ router.get("/api/user_data", isAuthenticated, (req, res) => {
   }
 });
 router.put("/api/userPhoto/", isAuthenticated, (req, res) => {
-  // console.log("********************************************************", req)
   let userId = req.body[1]
   let userPhoto = req.body[0]
   db.User.update(
@@ -30,7 +29,6 @@ router.put("/api/userPhoto/", isAuthenticated, (req, res) => {
   )
     .then(response => {
       res.json(response)
-      // console.log("********************************************************", res.jso)
     })
 })
 
