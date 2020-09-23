@@ -1,16 +1,38 @@
 import React from 'react';
 import "./style.css";
 import { Link } from "react-router-dom";
-
+import defaultPhoto from "../FormImg/img/car_gray.png"
+import { useEffect } from 'react';
+import API from "../../utils//API";
+import { useState } from 'react';
 
 
 function CarInfoBox(props) {
-  // console.log("props");
-  // console.log(props);
+  const [photo, setPhoto] = useState(defaultPhoto);
+  const vehiclePic = props.vehicle.vehiclePhoto;
+
+  useEffect(() => {
+
+    if (vehiclePic) {
+      API.uploadPhoto(vehiclePic)
+        .then((res) => {
+          if (res.code === "NoSuchKey") {
+            return;
+          } else {
+            setPhoto(res)
+          }
+        })
+    } else {
+      return
+    }
+
+  }, [])
+
+
   return (
     <div className='carInfoBox'>
       <span className='carBoxTopInfo'>
-        <img className='carBoxImg' src={require('../FormImg/img/car_gray.png')} alt='Vehicle' />
+        <img className='carBoxImg' src={photo} alt='Vehicle' />
         <div>
           <h2 className='carBoxTitle'>{props.vehicle.year} {props.vehicle.make} {props.vehicle.model}</h2>
           <br></br>
