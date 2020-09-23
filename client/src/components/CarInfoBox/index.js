@@ -11,9 +11,9 @@ function CarInfoBox(props) {
   const [photo, setPhoto] = useState(defaultPhoto);
   const vehiclePic = props.vehicle.vehiclePhoto;
   const [confirmDelete, setConfirmDelete] = useState(false);
-  const [hideMilage, setHideMilage] = useState(false);
+  const [hideMileage, setHideMileage] = useState(false);
   // const []
-  const [milage, setMilage] = useState("")
+  const [mileage, setMileage] = useState("")
 
   useEffect(() => {
 
@@ -46,20 +46,20 @@ function CarInfoBox(props) {
       })
   };
   const showInput = () => {
-    if (hideMilage === false) {
-      setHideMilage(true)
+    if (hideMileage === false) {
+      setHideMileage(true)
     } else {
-      setHideMilage(false)
+      setHideMileage(false)
     }
   }
-  const milageUpdate = (e) => {
-    setMilage(e.target.value)
+  const mileageUpdate = (e) => {
+    setMileage(e.target.value)
   }
-  const handleMilageUpdate = () => {
-    setHideMilage(false);
+  const handleMileageUpdate = () => {
+    setHideMileage(false);
     let carId = props.vehicle.id
-    let newMilage = milage
-    let data = [carId, newMilage]
+    let newMileage = mileage
+    let data = [carId, newMileage]
     API.updateMileage(data)
       .then(res => {
         console.log(res)
@@ -72,7 +72,7 @@ function CarInfoBox(props) {
         <div>
           <h2 className='carBoxTitle'>{props.vehicle.year} {props.vehicle.make} {props.vehicle.model}</h2>
           <br></br>
-          <p className='carBoxText'>Milage: {props.vehicle.mileage}</p>
+          <p className='carBoxText'>Mileage: {props.vehicle.mileage}</p>
           <p className='carBoxText'>Vin: {props.vehicle.vin}</p>
         </div>
       </span>
@@ -87,9 +87,9 @@ function CarInfoBox(props) {
           <Link to={`/vehicles/${props.vehicle.id}`}>
             <p className='carBoxLink'>View Vehicle</p>
           </Link>
-          <p className='carBoxLink' onClick={showInput}>Update Milage</p>
-          <input type="text" style={{ display: hideMilage ? "" : "none" }} name="milage" onChange={milageUpdate} ></input>
-          <ActionBtn url="#" handleClick={handleMilageUpdate} style={{ display: hideMilage ? "" : "none" }} >Update!</ActionBtn>
+          <p className='carBoxLink' onClick={showInput}>Update Mileage</p>
+          <input type="text" style={{ display: hideMileage ? "" : "none" }} name="mileage" onChange={mileageUpdate} ></input>
+          <ActionBtn url="#" handleClick={handleMileageUpdate} style={{ display: hideMileage ? "" : "none" }} >Update!</ActionBtn>
           <Link to={`/NewMaintenance/${props.vehicle.id}`}>
             <p className='carBoxLink'>New Maintenance</p>
           </Link>

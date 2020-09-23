@@ -117,7 +117,6 @@ class VehicleDisplay extends Component {
           </div>
           <div className='garageSidebar vehicleLinksSidebar'>
             <div className='vehicleBoxLinkContainer'>
-              <p className='vehicleBoxLink'>Update Milage</p>
               <Link to={`/NewMaintenance/${this.state.vehicle.id}`}>
                 <p className='vehicleBoxLink'>New Maintenance</p>
               </Link>

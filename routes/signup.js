@@ -24,7 +24,10 @@ router.post("/api/signup", (req, res) => {
         .then(user => {
           const token = jwt.sign({
             email: user.dataValues.email,
-            userId: user.dataValues.id
+            id: user.dataValues.id,
+            lastName: user.dataValues.lastName,
+            firstName: user.dataValues.firstName,
+            profolioPic: user.dataValues.profolioPic
           },
             process.env.JWT_KEY,
             {
@@ -36,7 +39,8 @@ router.post("/api/signup", (req, res) => {
             token: token,
             id: user.dataValues.id,
             lastName: user.dataValues.lastName,
-            firstName: user.dataValues.firstName
+            firstName: user.dataValues.firstName,
+            profolioPic: user.dataValues.profolioPic
           })
             .catch(err => {
               console.log(err)
