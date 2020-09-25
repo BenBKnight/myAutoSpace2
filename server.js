@@ -18,16 +18,16 @@ const PORT = process.env.PORT || 8080;
 app.use(express.static("client/build"));
 
 
-// if (process.env.JAWSDB_URL) {
-//     connection = mysql.createConnection(process.env.JAWSDB_URL);
-// } else {
-connection = mysql.createConnection({
-    host: process.env.HOST_KEY,
-    user: process.env.USER_KEY,
-    password: process.env.MYSQL_KEY,
-    database: process.env.DATA_BASE_KEY
-})
-// }
+if (process.env.JAWSDB_URL) {
+    connection = mysql.createConnection(process.env.JAWSDB_URL);
+} else {
+    connection = mysql.createConnection({
+        host: process.env.HOST_KEY,
+        user: process.env.USER_KEY,
+        password: process.env.MYSQL_KEY,
+        database: process.env.DATA_BASE_KEY
+    })
+}
 
 // Creating express app and configuring middleware needed for authentication
 app.use(express.urlencoded({ extended: true }));
