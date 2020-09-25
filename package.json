@@ -5,20 +5,20 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "concurrently \"nodemon server.js\" \"cd ./client && npm start\"",
+    "start": "nodemon server.js",
     "server": "nodemon --inspect server.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/BenBKnight/myautospace2.git"
+    "url": "git+https://github.com/BenBKnight/myAutoSpace2.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/BenBKnight/myautospace2/issues"
+    "url": "https://github.com/BenBKnight/myAutoSpace2/issues"
   },
-  "homepage": "https://github.com/BenBKnight/myautospace2#readme",
+  "homepage": "https://github.com/BenBKnight/myAutoSpace2#readme",
   "dependencies": {
     "animate.css": "^4.1.0",
     "aws-sdk": "^2.754.0",

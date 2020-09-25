@@ -68,7 +68,13 @@ class NewMaintenance extends Component {
               partPhoto: res
             }
           }, () => {
-            this.state.maintToAdd.VehicleId = this.state.vehicleId;
+            this.setState({
+              maintToAdd: {
+                ...this.state.maintToAdd,
+                VehicleId: this.state.vehicleId
+              }
+            })
+            // this.state.maintToAdd.VehicleId = this.state.vehicleId;
             let newMaint = this.state.maintToAdd;
             newMaint.VehicleId = this.state.vehicleID;
             console.log(newMaint)
@@ -83,7 +89,14 @@ class NewMaintenance extends Component {
         })
     }
     else {
-      this.state.maintToAdd.VehicleId = this.state.vehicleId;
+
+      this.setState({
+        maintToAdd: {
+          ...this.state.maintToAdd,
+          VehicleId: this.state.vehicleId
+        }
+      })
+      // this.state.maintToAdd.VehicleId = this.state.vehicleId;
       let newMaint = this.state.maintToAdd;
       newMaint.VehicleId = this.state.vehicleID;
       console.log(newMaint)

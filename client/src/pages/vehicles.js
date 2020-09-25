@@ -8,9 +8,6 @@ import NavbarLink from '../components/NavbarLink';
 import ActionBtn from '../components/ActionBtn';
 import FormImg from '../components/FormImg';
 import { useEffect } from "react";
-import { store } from "react-notifications-component";
-import "react-notifications-component/dist/theme.css";
-import "animate.css";
 
 function Vehicles(props) {
   const [make, setMake] = useState("");
@@ -45,7 +42,7 @@ function Vehicles(props) {
   });
   const [vehicleOwners, setVehicleOwners] = useState(2);
 
-  const [userId, setUserId] = useContext(AuthContext);
+  const [userId] = useContext(AuthContext);
 
   const handleInputChange = event => {
     // Getting the value and name of the input which triggered the change

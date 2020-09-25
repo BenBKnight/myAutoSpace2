@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken")
 
 
 router.post("/api/login", (req, res) => {
-  console.log("first", req.body)
+  console.log("===========================================================", req.body)
   db.User.findOne({
     where: {
       email: req.body.email

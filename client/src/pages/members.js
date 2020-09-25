@@ -11,7 +11,7 @@ import UserInfo from '../components/UserInfo';
 import CarInfoBox from "../components/CarInfoBox"
 
 export default function Members(props) {
-  const [userId, setUserId] = useContext(AuthContext);
+  const [userId] = useContext(AuthContext);
   const [userVehicles, setVehicle] = useState([]);
   const signOut = () => { localStorage.removeItem("jwt.Token") }
 

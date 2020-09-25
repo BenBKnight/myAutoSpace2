@@ -22,31 +22,27 @@ function Login(props) {
   const [location, setLocation] = useState("");
 
   const handleLogInSubmit = (e) => {
-    console.log(e.target)
     e.preventDefault();
     let user = {
       email: emailInput.trim(),
       password: passwordInput.trim()
     }
-
-    return;
-  }
-  API.loginUser(user)
-    .then(resData => {
-      setUserId({
-        ...userId,
-        id: resData.data.id,
-        firstName: resData.data.firstName,
-        lastName: resData.data.lastName,
-        token: resData.data.token,
-        profolioPic: resData.data.profolioPic
+    API.loginUser(user)
+      .then(resData => {
+        setUserId({
+          ...userId,
+          id: resData.data.id,
+          firstName: resData.data.firstName,
+          lastName: resData.data.lastName,
+          token: resData.data.token,
+          profolioPic: resData.data.profolioPic
+        })
+        props.history.push("/Members");
       })
-      props.history.push("/Members");
-    })
-    .catch(err => {
-      console.log(err)
-    });
-
+      .catch(err => {
+        console.log(err)
+      });
+  }
 
   const handleSignUpSubmit = event => {
     event.preventDefault();
@@ -141,5 +137,5 @@ function Login(props) {
     </div>
   );
 
-}
+};
 export default withRouter(Login);
