@@ -85,7 +85,6 @@ function Vehicles(props) {
       UserId: userId.id,
       vehiclePhoto: returnedPhoto
     };
-    console.log(vehicleNew)
     API.newVehicle(vehicleNew)
       .then((res) => {
         props.history.push("/Members");
@@ -117,11 +116,7 @@ function Vehicles(props) {
       default:
         break;
     }
-    console.log(activeCondition, activeOwners, activeType)
   }
-  useEffect(() => {
-    console.log(userId.id)
-  })
   const signOut = () => { localStorage.removeItem("jwt.Token") }
   const addFile = (e) => {
     setSelectedPhoto(e.target.files[0])

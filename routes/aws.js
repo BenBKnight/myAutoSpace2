@@ -9,7 +9,7 @@ const path = require('path');
 const s3 = new aws.S3({
     accessKeyId: process.env.accesskey,
     secretAccessKey: process.env.secretaccess,
-    bucket: 'myautospacebbk'
+    bucket: 'myautospacebbk1'
 })
 
 aws.config.update({
@@ -37,7 +37,7 @@ let apiCall = new aws.S3();
 
 async function getImage(req) {
     let photoParams = {
-        Bucket: "myautospacebbk",
+        Bucket: "myautospacebbk1",
         Key: req
     };
     const data = apiCall.getObject(photoParams).promise();
@@ -54,7 +54,7 @@ function encode(data) {
 const imgUpload = multer({
     storage: multerS3({
         s3: s3,
-        bucket: 'myautospacebbk',
+        bucket: 'myautospacebbk1',
         key: function (req, file, cb) {
             cb(null, path.basename(file.originalname, path.extname(file.originalname)) + '-' + Date.now() + path.extname(file.originalname))
         }
@@ -88,7 +88,6 @@ function checkFileType(file, cb) {
 
 router.post('/api/photoUpload/', (req, res) => {
     imgUpload(req, res, (error) => {
-        console.log('requestOkokok', req.file);
         console.log('error', error);
         if (error) {
             console.log('errors', error);
@@ -100,7 +99,6 @@ router.post('/api/photoUpload/', (req, res) => {
                 res.json('Error: No File Selected');
             } else {
                 // If Success
-                console.log("success in photo!")
                 const imageName = req.file.key;
                 const imageLocation = req.file.location;// Save the file name into database into profile model
                 res.json({

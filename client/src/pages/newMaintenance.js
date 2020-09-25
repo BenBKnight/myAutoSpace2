@@ -18,7 +18,7 @@ class NewMaintenance extends Component {
         milage: "",
         parts: "",
         jobDate: "",
-        VehicleId: localStorage.getItem("vehicleId"),
+        VehicleId: "",
         partPhoto: ""
       },
       year: "",
@@ -68,16 +68,7 @@ class NewMaintenance extends Component {
               partPhoto: res
             }
           }, () => {
-            this.setState({
-              maintToAdd: {
-                ...this.state.maintToAdd,
-                VehicleId: this.state.vehicleId
-              }
-            })
-            // this.state.maintToAdd.VehicleId = this.state.vehicleId;
             let newMaint = this.state.maintToAdd;
-            newMaint.VehicleId = this.state.vehicleID;
-            console.log(newMaint)
             API.maintRecord(newMaint)
               .then((res) => {
                 this.props.history.push(`/Vehicles/${this.state.maintToAdd.VehicleId}`)
@@ -89,17 +80,7 @@ class NewMaintenance extends Component {
         })
     }
     else {
-
-      this.setState({
-        maintToAdd: {
-          ...this.state.maintToAdd,
-          VehicleId: this.state.vehicleId
-        }
-      })
-      // this.state.maintToAdd.VehicleId = this.state.vehicleId;
       let newMaint = this.state.maintToAdd;
-      newMaint.VehicleId = this.state.vehicleID;
-      console.log(newMaint)
       API.maintRecord(newMaint)
         .then((res) => {
           this.props.history.push(`/Vehicles/${this.state.maintToAdd.VehicleId}`)
@@ -113,16 +94,17 @@ class NewMaintenance extends Component {
   componentDidMount() {
     let location = this.props.match.params.id;
     this.setState({
-      vehicleID: location
+      maintToAdd: {
+        ...this.state.maintToAdd,
+        VehicleId: location
+      }
     }, () => {
       this.apiCall()
     })
   };
-
   apiCall = () => {
-    API.vehicleById(this.state.vehicleID)
+    API.vehicleById(this.state.maintToAdd.VehicleId)
       .then((res) => {
-        console.log(res.data[0])
         this.setState({
           vehicle: res.data[0]
         })
