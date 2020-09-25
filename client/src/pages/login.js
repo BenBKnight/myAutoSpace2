@@ -11,10 +11,6 @@ import ActionBtn from '../components/ActionBtn';
 import BulletPoint from '../components/BulletPoint';
 import FormInputTwo from '../components/FormInputTwo';
 
-import { store } from "react-notifications-component";
-import "react-notifications-component/dist/theme.css";
-import "animate.css";
-
 function Login(props) {
   const [emailInput, setEmailInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
@@ -32,75 +28,25 @@ function Login(props) {
       email: emailInput.trim(),
       password: passwordInput.trim()
     }
-    if (!emailInput || !passwordInput) {
-      store.addNotification({
-        message: "Enter email and password!",
-        type: "danger",
-        insert: "top",
-        container: "top-center",
-        animationIn: ["animate__animated", "animate__shakeX"],
-        animationOut: ["animate__animated", "animate__fadeOut"],
-        dismiss: {
-          duration: 1500
-        }
-      });
-      return;
-    }
-    API.loginUser(user)
-      .then(resData => {
-        setUserId({
-          ...userId,
-          id: resData.data.id,
-          firstName: resData.data.firstName,
-          lastName: resData.data.lastName,
-          token: resData.data.token,
-          profolioPic: resData.data.profolioPic
-        })
-        props.history.push("/Members");
-        store.addNotification({
-          message: "Logged-in",
-          type: "success",
-          insert: "top",
-          container: "top-center",
-          animationIn: ["animate__animated", "animate__bounceIn"],
-          animationOut: ["animate__animated", "animate__bounceOut"],
-          dismiss: {
-            duration: 1500
-          }
-        });
+
+    return;
+  }
+  API.loginUser(user)
+    .then(resData => {
+      setUserId({
+        ...userId,
+        id: resData.data.id,
+        firstName: resData.data.firstName,
+        lastName: resData.data.lastName,
+        token: resData.data.token,
+        profolioPic: resData.data.profolioPic
       })
-      .catch(err => {
-        console.log(err)
-        switch (err.message) {
-          case "Request failed with status code 401":
-            store.addNotification({
-              message: "Wrong email or password!",
-              type: "danger",
-              insert: "top",
-              container: "top-center",
-              animationIn: ["animate__animated", "animate__shakeX"],
-              animationOut: ["animate__animated", "animate__fadeOut"],
-              dismiss: {
-                duration: 1500
-              }
-            });
-            break;
-          case "Network Error":
-            store.addNotification({
-              message: "No internet!",
-              type: "danger",
-              insert: "top",
-              container: "top-center",
-              animationIn: ["animate__animated", "animate__shakeX"],
-              animationOut: ["animate__animated", "animate__fadeOut"],
-              dismiss: {
-                duration: 1500
-              }
-            });
-            break;
-        }
-      });
-  };
+      props.history.push("/Members");
+    })
+    .catch(err => {
+      console.log(err)
+    });
+
 
   const handleSignUpSubmit = event => {
     event.preventDefault();
@@ -111,20 +57,7 @@ function Login(props) {
       lastName: lastName.trim(),
       location: location.trim()
     }
-    if (!email || !password) {
-      store.addNotification({
-        message: "Please fill out all the required fields!",
-        type: "warning",
-        insert: "top",
-        container: "top-center",
-        animationIn: ["animate__animated", "animate__shakeX"],
-        animationOut: ["animate__animated", "animate__fadeOut"],
-        dismiss: {
-          duration: 1500
-        }
-      });
-      return;
-    }
+
     console.log(user)
     API.signUp(user)
       .then(resData => {
@@ -137,25 +70,11 @@ function Login(props) {
           token: resData.data.token
         })
         props.history.push("/Members")
-        store.addNotification({
-          message: "Signed-up and logged-in",
-          type: "success",
-          insert: "top",
-          container: "top-center",
-          animationIn: ["animate__animated", "animate__bounceIn"],
-          animationOut: ["animate__animated", "animate__bounceOut"],
-          dismiss: {
-            duration: 1500
-          }
-        });
       })
       .catch(err => {
         console.log(err);
       })
-  };
-  // const handleSignUpErr = (err) => {
-  //   alert(err);
-  // };
+  }
 
   const handleInputChange = event => {
     // Getting the value and name of the input which triggered the change
@@ -187,6 +106,7 @@ function Login(props) {
       return;
     }
   };
+
 
   return (
     <div>
@@ -220,6 +140,6 @@ function Login(props) {
       </div>
     </div>
   );
-}
 
+}
 export default withRouter(Login);

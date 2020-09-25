@@ -91,33 +91,10 @@ function Vehicles(props) {
     console.log(vehicleNew)
     API.newVehicle(vehicleNew)
       .then((res) => {
-        setUserId({ ...userId, showNotification: true });
         props.history.push("/Members");
-        store.addNotification({
-          message: "Added new vehicle.",
-          type: "success",
-          insert: "top",
-          container: "top-center",
-          animationIn: ["animate__animated", "animate__bounceIn"],
-          animationOut: ["animate__animated", "animate__bounceOut"],
-          dismiss: {
-            duration: 1500
-          }
-        });
       })
       .catch(err => {
         console.log(err);
-        store.addNotification({
-          message: "Please fill out all the required fields!",
-          type: "warning",
-          insert: "top",
-          container: "top-center",
-          animationIn: ["animate__animated", "animate__shakeX"],
-          animationOut: ["animate__animated", "animate__fadeOut"],
-          dismiss: {
-            duration: 1500
-          }
-        });
       });
   };
 
@@ -148,7 +125,7 @@ function Vehicles(props) {
   useEffect(() => {
     console.log(userId.id)
   })
-  const signOut = () => { setUserId({ ...userId, showNotification: true }); localStorage.removeItem("jwt.Token"); }
+  const signOut = () => { localStorage.removeItem("jwt.Token") }
   const addFile = (e) => {
     setSelectedPhoto(e.target.files[0])
     setAwsSelected(true)

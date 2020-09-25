@@ -13,7 +13,7 @@ import CarInfoBox from "../components/CarInfoBox"
 export default function Members(props) {
   const [userId, setUserId] = useContext(AuthContext);
   const [userVehicles, setVehicle] = useState([]);
-  const signOut = () => { setUserId({ ...userId, showNotification: true }); localStorage.removeItem("jwt.Token"); }
+  const signOut = () => { localStorage.removeItem("jwt.Token") }
 
   useEffect(() => {
     API.allVehicles(userId.id)
@@ -22,9 +22,6 @@ export default function Members(props) {
           ...userVehicles,
           ...res.data
         ]);
-        if (Notification.permission === "granted" && userId.showNotification === true) {
-          setUserId({ ...userId, showNotification: false });
-        }
       })
       .catch(err => {
         console.log(err);
