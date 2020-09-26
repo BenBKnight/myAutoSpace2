@@ -94,13 +94,11 @@ export default {
                         if ('LIMIT_FILE_SIZE' === response.data.error.code) {
                             console.log('Max size: 2MB', 'red');
                         } else {
-                            console.log(response.data);// If not the given file type
                             console.log(response.data.error, 'red');
                         }
                     } else {
                         // Success
                         let fileName = response.data;
-                        console.log(response)
                         return fileName.image
                     }
                 }
@@ -116,7 +114,6 @@ export default {
             })
     },
     updateUserPic: function (data) {
-        console.log(data)
         return axios.put(serverUrl + "/api/userPhoto/", data, {
             headers: {
                 Authorization: localStorage.getItem("jwt.Token")
@@ -127,26 +124,21 @@ export default {
         });
     },
     deleteCar: function (data) {
-        console.log(data)
         return axios.delete(serverUrl + "/api/vehicles/" + data, {
             headers: {
                 Authorization: localStorage.getItem("jwt.Token")
             }
         })
             .then((res) => {
-                console.log(res)
             })
     },
     updateMileage: function (data) {
-        console.log(data)
-        console.log(localStorage.getItem("jwt.Token"))
         return axios.put(serverUrl + "/api/vehicleMileage/", data, {
             headers: {
                 Authorization: localStorage.getItem("jwt.Token")
             }
         })
             .then((res) => {
-                console.log(res)
             })
     }
 }

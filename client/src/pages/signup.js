@@ -23,7 +23,6 @@ function Login(props) {
         }
         API.loginUser(user)
             .then(resData => {
-                console.log(resData.data.token, resData.data.id)
                 // context.login(
                 //     resData.data.token,
                 //     resData.data.userId

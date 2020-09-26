@@ -53,11 +53,8 @@ function Login(props) {
       lastName: lastName.trim(),
       location: location.trim()
     }
-
-    console.log(user)
     API.signUp(user)
       .then(resData => {
-        console.log(resData)
         setUserId({
           ...userId,
           id: resData.data.id,

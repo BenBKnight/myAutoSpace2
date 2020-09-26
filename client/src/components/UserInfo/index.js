@@ -45,7 +45,7 @@ function UserInfo(props) {
     let updateData = [data, userId.id]
     API.updateUserPic(updateData)
       .then((res) => {
-        console.log("sucess", res)
+        console.log("sucess")
       })
   }
 

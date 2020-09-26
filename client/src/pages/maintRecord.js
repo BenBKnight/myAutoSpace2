@@ -52,7 +52,6 @@ class MaintRecord extends Component {
     signOut = () => { localStorage.removeItem("jwt.Token") }
 
     render() {
-        console.log(this.state);
         return (
             <>
                 <Navbar>
