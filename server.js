@@ -1,11 +1,8 @@
+require("dotenv").config()
 const express = require("express");
 const path = require("path")
 const app = express();
-
-
-
 const mysql = require("mysql");
-require("dotenv").config()
 const db = require("./models")
 
 const PORT = process.env.PORT || 8080;

@@ -29,7 +29,7 @@ router.post("/api/signup", (req, res) => {
             firstName: user.dataValues.firstName,
             profolioPic: user.dataValues.profolioPic
           },
-            process.env.JWT_KEY,
+            "" + process.env.JWT_KEY,
             {
               expiresIn: "1h"
             }
